@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./dist/bundle.umd.js"></script>
+    <script>
+      const instance = easyFetch.createInstance({
+        baseURL: 'https://jp.hey-power.com',
+      });
+
+      instance.interceptors.request.use((config) => {
+        console.log(config);
+        return config;
+      });
+
+      instance.interceptors.response.use((response) => {
+        console.log(response);
+      });
+
+      instance({
+        url: '/api/country/language',
+        headers: {
+          'Content-Type': 'application/json;charse=UTF-8',
+        },
+        data: {
+          ceshi: 2,
+        },
+      }).then(
+        (result) => {
+          console.log(result);
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      );
+    </script>
+  </body>
+</html>
