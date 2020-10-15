@@ -1,34 +1,34 @@
-import { InterceptorManager } from './lib/InterceptorManager';
+import { InterceptorManager } from './lib/InterceptorManager'
 
-type Escape = 'json' | 'text' | 'formData' | 'blob' | 'arrayBuffer';
+type Escape = 'json' | 'text' | 'formData' | 'blob' | 'arrayBuffer'
 
 export interface Params {
-  [propsName: string]: string;
+  [propsName: string]: string
 }
 
 export interface DefaultConfig {
-  baseURL?: string;
-  timeout?: number;
-  escape: Escape;
-  headers?: HeadersInit;
+  baseURL?: string
+  timeout?: number
+  escape: Escape
+  headers?: HeadersInit
 }
 
 export interface Config extends RequestInit {
-  url: string;
-  data?: BodyInit | Record<string, unknown>;
-  params?: Params;
+  url: string
+  data?: BodyInit | Record<string, unknown>
+  params?: Params
 }
 
 export interface Response<T = unknown> {
-  data: T;
-  status: number;
-  statusText: string;
+  data: T
+  status: number
+  statusText: string
 }
 
 export interface Instance {
-  (config: Config & Partial<DefaultConfig>): Promise<Config & DefaultConfig>;
+  (config: Config & Partial<DefaultConfig>): Promise<Config & DefaultConfig>
   interceptors: {
-    request: InterceptorManager<Config & DefaultConfig>;
-    response: InterceptorManager<Response>;
-  };
+    request: InterceptorManager<Config & DefaultConfig>
+    response: InterceptorManager<Response>
+  }
 }

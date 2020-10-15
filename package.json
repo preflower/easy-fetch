@@ -8,9 +8,9 @@
     "eslint": "^7.11.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
-    "prettier": "^2.1.2",
     "rollup": "^2.29.0",
     "rollup-plugin-typescript2": "^0.27.3",
+    "ts-standard": "^9.0.0",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"
   },
@@ -24,8 +24,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "prettier --print-width 120 --single-quote --trailing-comma all --jsx-bracket-same-line --write",
+    "*.{ts}": [
+      "ts-standard \"src/**/*.ts\" --fix",
       "eslint \"src/**/*.ts\""
     ]
   },
