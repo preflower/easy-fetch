@@ -5,7 +5,7 @@ import { Config, DefaultConfig } from '../types';
  * send request via fetch
  * @param {*} config
  */
-export default function request(config: Config & DefaultConfig): Promise<any> {
+export default function request(config: Config & DefaultConfig): Promise<unknown> {
   const { url, data, timeout, escape, ...options } = config;
 
   function timeoutPromise() {

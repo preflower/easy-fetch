@@ -15,11 +15,11 @@ export interface DefaultConfig {
 
 export interface Config extends RequestInit {
   url: string;
-  data?: BodyInit | Object;
+  data?: BodyInit | Record<string, unknown>;
   params?: Params;
 }
 
-export interface Response<T = any> {
+export interface Response<T = unknown> {
   data: T;
   status: number;
   statusText: string;

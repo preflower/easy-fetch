@@ -8,10 +8,7 @@ const defaultConfig: DefaultConfig = {
   escape: 'json',
 };
 
-function mergeConfig(
-  config1: DefaultConfig,
-  config2: Config & Partial<DefaultConfig>
-): Config & DefaultConfig {
+function mergeConfig(config1: DefaultConfig, config2: Config & Partial<DefaultConfig>): Config & DefaultConfig {
   const config = Object.assign({}, config1, config2);
 
   // merge headers
@@ -34,17 +31,13 @@ function mergeConfig(
   return config;
 }
 
-function mergeURL(
-  baseURL: string = '',
-  url: string,
-  params: Params = {}
-): string {
+function mergeURL(baseURL = '', url: string, params: Params = {}): string {
   let uri = isAbsoluteURL(url) ? url : `${baseURL}${url}`;
 
   // object -> url params
-  let serializedParams = '',
-    _temp = [];
-  for (let key in params) {
+  let serializedParams = '';
+  const _temp = [];
+  for (const key in params) {
     _temp.push(`${key}=${params[key]}`);
   }
   serializedParams = _temp.join('&');
@@ -59,35 +52,29 @@ function mergeURL(
 export default class EasyFetch {
   defaults: DefaultConfig;
   interceptors = {
-    request: new InterceptorManager(),
-    response: new InterceptorManager(),
+    request: new InterceptorManager<Config & DefaultConfig>(),
+    response: new InterceptorManager<Response>(),
   };
 
   constructor(globalConfig: Partial<DefaultConfig> = {}) {
     this.defaults = Object.assign({}, defaultConfig, globalConfig);
   }
 
-  request(config: Config & Partial<DefaultConfig>) {
+  request(config: Config & Partial<DefaultConfig>): Promise<Config & DefaultConfig> {
     if (config.method) {
       config.method = config.method.toUpperCase();
     } else {
       config.method = 'GET';
     }
 
-    config = mergeConfig(this.defaults, config);
+    const chain: any[] = [fetchRequest, undefined];
+    let promise = Promise.resolve(mergeConfig(this.defaults, config));
 
-    let chain: any[] = [fetchRequest, undefined];
-    let promise = Promise.resolve(config);
-
-    this.interceptors.request.forEach(function unshift(
-      interceptor: Handler<Config & DefaultConfig>
-    ) {
+    this.interceptors.request.forEach(function unshift(interceptor: Handler<Config & DefaultConfig>) {
       chain.unshift(interceptor.fulfilled, interceptor.rejected);
     });
 
-    this.interceptors.response.forEach(function push(
-      interceptor: Handler<Response>
-    ) {
+    this.interceptors.response.forEach(function push(interceptor: Handler<Response>) {
       chain.push(interceptor.fulfilled, interceptor.rejected);
     });
 

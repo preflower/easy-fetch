@@ -3,7 +3,7 @@ interface Fulfilled<T> {
 }
 
 interface Rejected {
-  (error: any): any;
+  (error: unknown): unknown;
 }
 
 export interface Handler<T> {
@@ -20,13 +20,13 @@ export class InterceptorManager<T> {
     return this.handlers.length - 1;
   }
 
-  eject(id: number) {
+  eject(id: number): void {
     if (this.handlers[id]) {
       this.handlers[id] = null;
     }
   }
 
-  forEach(fn: Function) {
+  forEach(fn: (interceptor: Handler<T>) => void): void {
     this.handlers.forEach((value: Handler<T> | null) => {
       if (value !== null) {
         fn(value);
