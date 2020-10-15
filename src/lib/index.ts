@@ -45,8 +45,8 @@ function mergeURL (url: string, baseURL = '', params: Params = {}): string {
   }
   serializedParams = _temp.join('&')
 
-  if (serializedParams) {
-    uri += (uri.indexOf('?') === -1 ? '?' : '&') + serializedParams
+  if (serializedParams != null) {
+    uri += (!uri.includes('?') ? '?' : '&') + serializedParams
   }
 
   return uri
@@ -66,7 +66,7 @@ export default class EasyFetch {
   async request (
     config: Config & Partial<DefaultConfig>
   ): Promise<Config & DefaultConfig> {
-    if (config.method) {
+    if (config.method != null) {
       config.method = config.method.toUpperCase()
     } else {
       config.method = 'GET'
@@ -87,7 +87,7 @@ export default class EasyFetch {
       chain.push(interceptor.fulfilled, interceptor.rejected)
     })
 
-    while (chain.length) {
+    while (chain.length > 0) {
       promise = promise.then(chain.shift(), chain.shift())
     }
 

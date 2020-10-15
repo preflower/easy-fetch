@@ -17,7 +17,7 @@ export class InterceptorManager<T> {
   }
 
   eject (id: number): void {
-    if (this.handlers[id]) {
+    if (this.handlers[id] != null) {
       this.handlers[id] = null
     }
   }
