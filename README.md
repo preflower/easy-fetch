@@ -4,7 +4,7 @@ A fetch-based request library, similar to axios
 
 ## Installing
 ```
-$ npm i @preflower/lin
+$ npm i @preflower/fetch
 ```
 
 ## Example
