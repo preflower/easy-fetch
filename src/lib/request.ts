@@ -23,7 +23,7 @@ export default async function request (
     options.body = isObject(data) ? JSON.stringify(data) : data
   }
 
-  return Promise.race([timeoutPromise(), fetch(url, options)])
+  return Promise.race([timeoutPromise(), window.fetch(url, options)])
     .then(async (response: Response) => {
       // check response status, if status in 200~299, ok -> true
       if (response.ok || response.status === 304) {

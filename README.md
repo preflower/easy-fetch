@@ -3,6 +3,9 @@
 A fetch-based request library, similar to axios
 
 ## Installing
+```
+$ npm i @preflower/lin
+```
 
 ## Example
 ```
@@ -12,7 +15,7 @@ const instance = easyFetch.createInstance({
 });
 
 /* ES Usage */
-import createInstance from 'easy-fetch';
+import { createInstance } from 'easy-fetch';
 
 const instance = createInstance({
   baseURL: 'https://xiatiande.com',
