@@ -11,6 +11,11 @@ export default {
     {
       file: "dist/bundle.esm.js",
       format: "es",
+    },
+    {
+      name: 'easyFetch',
+      file: "dist/bundle.umd.js",
+      format: "umd",
     }
   ],
   plugins: [typescript(), terser()],

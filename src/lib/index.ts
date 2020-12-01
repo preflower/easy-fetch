@@ -44,8 +44,7 @@ function mergeURL (url: string, baseURL = '', params: Params = {}): string {
     _temp.push(`${key}=${params[key]}`)
   }
   serializedParams = _temp.join('&')
-
-  if (serializedParams != null) {
+  if (serializedParams) {
     uri += (!uri.includes('?') ? '?' : '&') + serializedParams
   }
 

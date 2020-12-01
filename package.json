@@ -1,6 +1,6 @@
 {
   "name": "@preflower/fetch",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A fetch-based request library, similar to axios",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.4.1",
@@ -29,6 +29,8 @@
       "ts-standard \"src/**/*.ts\" --fix"
     ]
   },
+  "bugs": "https://github.com/preflower/easy-fetch/issues",
+  "repository": "https://github.com/preflower/easy-fetch",
   "author": "Preflower",
   "license": "MIT"
 }
