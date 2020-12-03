@@ -5,12 +5,12 @@ import { Config, DefaultConfig } from '../types'
  * send request via fetch
  * @param {*} config
  */
-export default async function request (
+export default async function request(
   config: Config & DefaultConfig
 ): Promise<unknown> {
   const { url, data, timeout, escape, ...options } = config
 
-  async function timeoutPromise (): Promise<Response> {
+  async function timeoutPromise(): Promise<Response> {
     // although promise never react Response, but need for ts check
     return await new Promise<Response>((resolve, reject) => {
       setTimeout(() => {
@@ -20,7 +20,10 @@ export default async function request (
   }
   // TODO: glue code; method is initial in index.ts[74]
   if (!/^(GET|HEAD)$/i.test(options.method ?? 'GET')) {
-    options.body = isObject(data) ? JSON.stringify(data) : data
+    // react-native: fixed FormData toString return [object Object] error
+    if (data instanceof FormData) options.body = data
+    else if (isObject(data)) options.body = JSON.stringify(data)
+    else options.body = data
   }
 
   return Promise.race([timeoutPromise(), window.fetch(url, options)])
