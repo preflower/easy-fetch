@@ -21,7 +21,7 @@ export default async function request(
   // TODO: glue code; method is initial in index.ts[74]
   if (!/^(GET|HEAD)$/i.test(options.method ?? 'GET')) {
     // react-native: fixed FormData toString return [object Object] error
-    if (data instanceof FormData) options.body = data
+    if (data instanceof window.FormData) options.body = data
     else if (isObject(data)) options.body = JSON.stringify(data)
     else options.body = data
   }
