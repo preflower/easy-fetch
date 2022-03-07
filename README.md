@@ -1,4 +1,5 @@
 # Easy Fetch
+[Deprecated] use [umi-request](https://github.com/umijs/umi-request) instead of it
 
 A fetch-based request library, similar to axios
 
